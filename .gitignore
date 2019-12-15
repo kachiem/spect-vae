@@ -1,3 +1,4 @@
 # things to ignore
 
-Spectrogram_Inversion_gist.ipynb
+/notebooks/Spectrogram_Inversion_gist.ipynb
+/notebooks/.ipynb_checkpoints/
