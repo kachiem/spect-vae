@@ -160,7 +160,7 @@ z = Lambda(sampling, output_shape=(latent_dim,), name='z')([z_mean, z_log_var])
 # instantiate encoder model
 encoder = Model(inputs, [z_mean, z_log_var, z], name='encoder')
 encoder.summary()
-plot_model(encoder, to_file='vae_cnn_encoder.png', show_shapes=True)
+plot_model(encoder, to_file='vae_cnn/model/vae_cnn_encoder.png', show_shapes=True)
 
 # build decoder model
 latent_inputs = Input(shape=(latent_dim,), name='z_sampling')
@@ -184,7 +184,7 @@ outputs = Conv2DTranspose(filters=1,
 # instantiate decoder model
 decoder = Model(latent_inputs, outputs, name='decoder')
 decoder.summary()
-plot_model(decoder, to_file='vae_cnn_decoder.png', show_shapes=True)
+plot_model(decoder, to_file='vae_cnn/model/vae_cnn_decoder.png', show_shapes=True)
 
 # instantiate VAE model
 outputs = decoder(encoder(inputs)[2])
@@ -215,7 +215,7 @@ if __name__ == '__main__':
     vae.add_loss(vae_loss)
     vae.compile(optimizer='rmsprop')
     vae.summary()
-    plot_model(vae, to_file='vae_cnn.png', show_shapes=True)
+    plot_model(vae, to_file='vae_cnn/model/vae_cnn.png', show_shapes=True)
 
     if args.weights:
         vae.load_weights(args.weights)
@@ -225,6 +225,6 @@ if __name__ == '__main__':
                 epochs=epochs,
                 batch_size=batch_size,
                 validation_data=(x_test, None))
-        vae.save_weights('vae_cnn_mnist.h5')
+        vae.save_weights('images/vae_cnn/vae_cnn_mnist.h5')
 
     plot_results(models, data, batch_size=batch_size, model_name="vae_cnn")
